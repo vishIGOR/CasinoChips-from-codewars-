@@ -1,4 +1,4 @@
-Для юнит-тестирования использовалась библиотек mocha(для неё нужен node.js).
+Для юнит-тестирования использовалась библиотека mocha(для неё нужен node.js).
 Инструкция по работе с mocha: https://highload.today/yunit-testy-v-javascript-instrumenty-i-platformy/
 
 Или моя инструкция:
