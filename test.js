@@ -1,208 +1,65 @@
 const assert = require('assert');
 const program = require('./index');
-it('validation_withValidInput_returnTrue', () => {
-    let inputData = [3, 4, 0];
-    let expectedResult = true;
 
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('validation_withInputIsNotArrayButString_returnValidException', () => {
-    let inputData = "hello";
-    let expectedResult = new program.ValidationError(program.ValidationError.notArrayErrorText);
-
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
-})
-
-it('validation_withInputIsNotArrayButObject_returnValidException', () => {
-    let inputData = { "0": 3, "1": 4, "2": 0 };
-    let expectedResult = new program.ValidationError(program.ValidationError.notArrayErrorText);
-
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
-})
-
-it('validation_withInputIsNotArrayButNumber_returnValidException', () => {
-    let inputData = 324234234;
-    let expectedResult = new program.ValidationError(program.ValidationError.notArrayErrorText);
-
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
-})
-
-it('validation_withTooBigInputLength_returnValidException', () => {
-    let inputData = [3, 0, 3, 1];
-    let expectedResult = new program.ValidationError(program.ValidationError.invalidLengthErrorText);
-
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
-})
-
-it('validation_withTooSmallInputLength_returnValidException', () => {
-    let inputData = [3, 0];
-    let expectedResult = new program.ValidationError(program.ValidationError.invalidLengthErrorText);
-
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
-})
-
-it('validation_withStringElements_returnValidException', () => {
-    let inputData = [3, 1, "hello"];
-    let expectedResult = new program.ValidationError(program.ValidationError.elementIsNotIntegerErrorText);
-
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
-})
-
-it('validation_withArrayElements_returnValidException', () => {
-    let inputData = [3, 1, [2, 2]];
-    let expectedResult = new program.ValidationError(program.ValidationError.elementIsNotIntegerErrorText);
-
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
-})
-
-it('validation_withObjectElements_returnValidException', () => {
-    let inputData = [3, 1, { fiel1: 1, filed2: 2 }];
-    let expectedResult = new program.ValidationError(program.ValidationError.elementIsNotIntegerErrorText);
-
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
-})
-
-it('validation_withDoubleElements_returnValidException', () => {
-    let inputData = [3, 1, 2.212];
-    let expectedResult = new program.ValidationError(program.ValidationError.elementIsNotIntegerErrorText);
-
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
-})
-
-it('validation_withElementIsLessThanZero_returnValidException', () => {
-    let inputData = [3, 1, -22];
-    let expectedResult = new program.ValidationError(program.ValidationError.elementIsLessZeroErrorText);
-
-    let actualResult = program.validateInputArray(inputData);
-
-    assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
-})
-
-it('findIndexWithMinValue_withDifferentNumbers_returnCorrectIndex', () => {
-    let inputData = [3, 1, 22];
-    let expectedResult = 1;
-
-    let actualResult = program.findIndexWithMinValue(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('findIndexWithMinValue_withTwoSameNumbers_returnFirstCorrectIndex', () => {
-    let inputData = [5, 3, 3];
-    let expectedResult = 1;
-
-    let actualResult = program.findIndexWithMinValue(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('findIndexWithMinValue_withAllSameNumbers_returnFirstIndex', () => {
-    let inputData = [22, 22, 22];
-    let expectedResult = 0;
-
-    let actualResult = program.findIndexWithMinValue(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('solve_withSomeSmallData1_returnCorrectValue', () => {
-    let inputData = [1, 2, 2];
-    let expectedResult = 2;
-
-    let actualResult = program.solve(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('solve_withSomeSmallData2_returnCorrectValue', () => {
-    let inputData = [1, 7, 4];
-    let expectedResult = 5;
-
-    let actualResult = program.solve(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('solve_withSomeBigData1_returnCorrectValue', () => {
-    let inputData = [12312,549903,2220];
-    let expectedResult = 14532;
-
-    let actualResult = program.solve(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('solve_withSomeBigData2_returnCorrectValue', () => {
-    let inputData = [399092,5277943,822023];
-    let expectedResult = 1221115;
-
-    let actualResult = program.solve(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('solve_withTwoZeros_returnCorrectValue', () => {
-    let inputData = [0, 0, 2];
-    let expectedResult = 0;
-
-    let actualResult = program.solve(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('solve_withThreeZeros_returnCorrectValue', () => {
-    let inputData = [0, 0, 0];
-    let expectedResult = 0;
-
-    let actualResult = program.solve(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('solve_withElementBiggerThanOthers_returnCorrectValue', () => {
-    let inputData = [21, 1, 4];
-    let expectedResult = 5;
-
-    let actualResult = program.solve(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('solve_withAllSameOddNumbers_returnCorrectValue', () => {
-    let inputData = [21, 21, 21];
-    let expectedResult = 31;
-
-    let actualResult = program.solve(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
-
-it('solve_withAllSameEvenNumbers_returnCorrectValue', () => {
-    let inputData = [22, 22, 22];
-    let expectedResult = 33;
-
-    let actualResult = program.solve(inputData);
-
-    assert.equal(actualResult, expectedResult);
-})
+executeValidationTests();
+executeFindIndexTests();
+executeSolveTests();
+
+function executeValidationTests() {
+    validationTest("withValidInput_returnTrue", [3, 7, 1], true);
+    validationTest("withInputIsNotArrayButObject_returnNotArrayException", { "0": 3, "1": 4, "2": 0 }, new program.ValidationError(program.ValidationError.notArrayErrorText));
+    validationTest("withInputIsNotArrayButNumber_returnNotArrayException", 324234234, new program.ValidationError(program.ValidationError.notArrayErrorText));
+    validationTest("withInputIsNotArrayButString_returnValidException", "some test text", new program.ValidationError(program.ValidationError.notArrayErrorText));
+    validationTest("withTooBigInputLength_returnInvalidLengthException", [2, 0, 9, 1], new program.ValidationError(program.ValidationError.invalidLengthErrorText));
+    validationTest("withTooSmallInputLength_returnInvalidLengthException", [11, 2], new program.ValidationError(program.ValidationError.invalidLengthErrorText));
+    validationTest("validation_withStringElements_returnElementsIsNotIntegerException", [3, "hello??", 1], new program.ValidationError(program.ValidationError.elementIsNotIntegerErrorText));
+    validationTest("validation_withArrayElements_returnElementsIsNotIntegerException", [89, 6, [3, 5]], new program.ValidationError(program.ValidationError.elementIsNotIntegerErrorText));
+    validationTest("validation_withObjectElements_returnElementsIsNotIntegerException", [13, 4, { fiel1: 1, filed2: 2 }], new program.ValidationError(program.ValidationError.elementIsNotIntegerErrorText));
+    validationTest("validation_withDoubleElements_returnElementsIsNotIntegerException", [0, 8, 2.212], new program.ValidationError(program.ValidationError.elementIsNotIntegerErrorText));
+    validationTest("withElementIsLessThanZero_returnValidException", [4, 1, -22], new program.ValidationError(program.ValidationError.elementIsLessZeroErrorText));
+
+}
+
+function executeFindIndexTests() {
+    findIndexTest("withDifferentNumbers_returnCorrectIndex", [3, 1, 22], 1);
+    findIndexTest("withTwoSameNumbers_returnFirstCorrectIndex", [5, 3, 3], 1);
+    findIndexTest("withAllSameNumbers_returnFirstIndex", [24, 24, 24], 0);
+}
+
+function executeSolveTests() {
+    solveTest("withThreeZeros_returnZero", [0, 0, 0], 0);
+    solveTest("withElementBiggerThanOthers_returnCorrectValue", [32, 4, 9], 13);
+    solveTest("withAllSameEvenNumbers_returnCorrectValue", [40, 40, 40], 60);
+    solveTest("withAllSameOddNumbers_returnCorrectValue", [21, 21, 21], 31);
+    solveTest("withSomeSmallData1_returnCorrectValue", [1, 2, 2], 2);
+    solveTest("withSomeSmallData2_returnCorrectValue", [2, 7, 4], 6);
+    solveTest("withSomeBigData1_returnCorrectValue", [12312, 54903234, 2201209], 2213521);
+    solveTest("withSomeBigData2_returnCorrectValue", [39092212, 527212943, 822203], 39914415);
+    //Mocha не обрабатывает их при любом условии(даже если очень долго ждать)
+    // solveTest("withSomeVeryBigData1_returnCorrectValue", [Number.MAX_SAFE_INTEGER - 3223409, Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER - 237], 2);
+    // solveTest("_withSomeVeryBigData2_returnCorrectValue", [Number.MAX_VALUE - 999202122, Number.MAX_VALUE - 87421, Number.MAX_VALUE], 2);
+}
+
+function validationTest(testname, inputData, expectedResult) {
+    it('validation_' + testname, () => {
+        let actualResult = program.validateInputArray(inputData);
+
+        assert.equal(JSON.stringify(actualResult), JSON.stringify(expectedResult));
+    })
+}
+
+function findIndexTest(testname, inputData, expectedResult) {
+    it('findIndexWithMinValue_' + testname, () => {
+        let actualResult = program.findIndexWithMinValue(inputData);
+
+        assert.equal(actualResult, expectedResult);
+    })
+}
+
+function solveTest(testname, inputData, expectedResult) {
+    it('solve_' + testname, () => {
+        let actualResult = program.solve(inputData);
+
+        assert.equal(actualResult, expectedResult);
+    })
+}

@@ -48,25 +48,6 @@ function validateInputArray(arr) {
     return response;
 }
 
-function findIndexWithMinValue(arr) {
-    let minIndex = 0;
-
-    if (arr[1] < arr[minIndex])
-        minIndex = 1;
-    if (arr[2] < arr[minIndex])
-        minIndex = 2;
-
-    return minIndex;
-}
-
-// class UnitTestsContainer{
-//     findIndexWithMinValue_usingTestArray_returnsTestResult = (testArr, testResult)=>{
-
-//     let result = findIndexWithMinValue(testArr);
-
-//     return (result === testArr);
-//     }
-// }
 
 class ValidationError extends Error {
     constructor(message) {
@@ -79,6 +60,17 @@ class ValidationError extends Error {
     static invalidLengthErrorText = "Input data'length isn't 3";
     static elementIsNotIntegerErrorText = "Some element of data isn't integer";
     static elementIsLessZeroErrorText = "Some element of data is less than zero";
+}
+
+function findIndexWithMinValue(arr) {
+    let minIndex = 0;
+
+    if (arr[1] < arr[minIndex])
+        minIndex = 1;
+    if (arr[2] < arr[minIndex])
+        minIndex = 2;
+
+    return minIndex;
 }
 
 module.exports = { ValidationError, solve, findIndexWithMinValue, validateInputArray };
