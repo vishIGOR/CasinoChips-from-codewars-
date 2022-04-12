@@ -1,2 +1,3 @@
-*.json
-/node_modules
+frontend/*.json
+frontend/node_modules
+backend/app/.idea
